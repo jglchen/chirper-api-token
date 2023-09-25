@@ -46,6 +46,8 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+        
+        $deleteduser = $user->id;
 
         //Auth::logout();
         Auth::user()->tokens()->delete();
@@ -54,7 +56,7 @@ class ProfileController extends Controller
 
         /*Clean UserFlow models as the filed of followed_id equal $deleteduser*/
         $deleted = UserFollow::where('followed_id', $deleteduser)->delete();
-
+        
         /*
         $request->session()->invalidate();
         $request->session()->regenerateToken();
